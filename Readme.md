@@ -1,21 +1,17 @@
-==============================
-V 0.2
-Last update 8-Jun-2017
+CTA `ctools` installation instructions
 ==============================
 
 Installing gammaLib, ctools and CTAtools (and ctamacropy)
 
 Tested in:
-Linux: Ubuntu 16.10
-MacOS: 10.12.5
+- Linux: Ubuntu 16.10
+- MacOS: 10.12.5
 
+# 1. gammaLib & ctools
 
-1. gammaLib & ctools
-Page:
-http://cta.irap.omp.eu/ctools/
+Page: http://cta.irap.omp.eu/ctools/
 
-Download:
-http://cta.irap.omp.eu/ctools/download.html#download
+Download: http://cta.irap.omp.eu/ctools/download.html#download
  *There is a .dmg for Mac and works. 
 
 Instructions can be found in
@@ -25,24 +21,26 @@ In Mac, just open the .dmg file and go to 1.3
 
 (the $ symbol indicates the console prompt and is not part of the command that you should type in).
 
-================================
-1.1 gammalib
+## 1.1 gammalib
 
-_____
-1.1.1 Install in Linux:
+### 1.1.1 Install in Linux:
 
-$ tar xvfz gammalib-1.2.0.tar.gz 
-$ cd gammalib-1.2.0 
-$ ./configure
-$ make
-$ make check
-$ make install 
+```shell
+tar xvfz gammalib-1.2.0.tar.gz 
+cd gammalib-1.2.0 
+./configure
+make
+make check
+make install 
+```
 
 The last step may require system administrator privileges. In this case, use
-$ sudo make install
 
-_____
-1.1.2 Set environment
+```
+sudo make install
+```
+
+### 1.1.2 Set environment
 
 Type
 $ export GAMMALIB="/usr/local/gamma"  #default path, but put yours 
@@ -62,16 +60,14 @@ $python
 /usr/local/gamma/lib/python2.7/site-packages/gammalib 
 >>>
 
-_____
-1.1.3 Things can go wrong
+### 1.1.3 Things can go wrong
  
 In Ubuntu 16.10 some libraries were needed: libcifitsio-dev, libncurses5-dev, lib redline-dev
 You can easily solve it by:
 $ sudo apt-get install libcifitsio-dev libncurses5-dev libredline-dev
 
 
-===================================
-1.2 ctools
+## 1.2 ctools
 
 In Linux
 $ tar xvfz ctools-1.2.0.tar.gz
@@ -87,8 +83,7 @@ $ export CTOOLS=/usr/local/gamma
 $ source $CTOOLS/bin/ctools-init.sh
 
 
-===================================
-1.3 Permanent environment
+## 1.3 Permanent environment
 
 Open
 
@@ -101,10 +96,12 @@ $ nano <file>
 
 Then add:
 
+```bash
 ## CTA var ##
 export CTOOLS="/usr/local/gamma"   #default path, but put yours 
 export GAMMALIB="/usr/local/gamma"  #default path, but put yours 
 . /usr/local/gamma/bin/gammalib-init.sh  #default path, but put yours
+```
 
 And make sure that you already have $PYTHONPATH:
 $ echo $PYTHONPATH
@@ -116,22 +113,20 @@ export PYTHONPATH=“..your path to your Py.Libs:$PYTHONPATH"
 If you use Anaconda:
 export PYTHONPATH=“..your path/anaconda/lib:$PYTHONPATH"
 
-_____
-1.3.1 Things can go wrong
+### 1.3.1 Things can go wrong
 
 Missing python packages can be install with  
 
-With Anaconda
-$ conda install <package>
-or 
-$ pip install <package>
+With Anaconda: `$ conda install <package>` or 
+`$ pip install <package>`.
+
+You need to use Python 2.x to get it working. If you have multiple Anaconda environments installed, try `source activate <name-of-your-python2-env>`.
 
 
-============================
-============================
-2. CTAtools
-____
-2.1 Links
+
+# 2. CTAtools
+
+## 2.1 Links
 
 Documentation: 
 http://ctatools.readthedocs.io/en/latest/index.html
@@ -143,8 +138,7 @@ $ git clone https://github.com/davidsanchez/CTAtools.git
 If you doesn’t have git
 $ sudo apt-get install git
 
-_____
-2.1.1 Environment
+### 2.1.1 Environment
 
 Edit in CTAtools/Init_tools.sh for your Dirs. 
 
@@ -170,8 +164,7 @@ function var-cta() {
 	./usr/local/gamma/bin/gammalib-init.sh
 }
 
-_____
-2.1.2 Things can go wrong 
+### 2.1.2 Things can go wrong 
 
 If ebltable stills missing, try 
 $ conda install ebltable
@@ -187,9 +180,11 @@ in yours
 
 If there are missing pythons libs, try to change the init_tools.sh:
 
+```bash
 #manage Python
 #unset PYTHONPATH. # <— add #
 export PYTHONPATH="$CTATOOLS_DIR:$PYTHONPATH"  # <— add :$PYTHONPATH
+```
 
 Then  add to your bash file 
 
@@ -208,8 +203,7 @@ $ pip install …
 The last step may require system administrator privileges. In this case, use
 $ sudo pip install… 
 
-———- 
-pyRoot
+# pyRoot
 
 Could be issues with Python 2.7.10/2.7.13
 
@@ -221,9 +215,8 @@ Last version 6.08/04 works after updating:
 -Xcode 
 
 
-============
 
-A1. ctamacropy
+# ctamacropy
 
 Download:
 $ git clone https://github.com/cta-observatory/ctamacros.git
@@ -246,8 +239,7 @@ line 29, in set_root_spec
     spec		= "{0[norm]}*pow(x / {0[scale]},{0[index])*exp(x * {0[cut]})".format(params)  <- '}' missing extra ')'
 
 
-============
-Some Links:
+# Some Links
 
 https://github.com/davidsanchez/CTAtools
 http://ctatools.readthedocs.io/en/latest/index.html
